@@ -12,6 +12,8 @@ ALIAS_XBOX = ["xbox", "xb", "xb1", "xbone", "xboxone", "xbox1"]
 
 async def on_command(root, aux, query, msgobj):
     if root == "rlstats":
+        await msgobj.channel.trigger_typing()
+
         if not aux:
             platform = "steam"
         elif aux[0] in ALIAS_STEAM:
@@ -27,7 +29,6 @@ async def on_command(root, aux, query, msgobj):
         success, rldata = api_rocketleaguestats.check_rank(query, platform)
 
         # Create embed UI
-        await main.client.send_typing(msgobj.channel)
         if success:
             embed = ui_embed.success(msgobj.channel, rldata[0], rldata[1], rldata[2], rldata[3])
         else:
