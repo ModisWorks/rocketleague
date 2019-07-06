@@ -1,5 +1,4 @@
-from .._tools import ui_embed
-from ._data import *
+from modis.tools import embed
 
 
 def success(channel, stats, name, platform, dp):
@@ -29,16 +28,17 @@ def success(channel, stats, name, platform, dp):
 
         # Add percentile if it exists
         if stat[2]:
-            stat_value += " *(Top " + stat[2] + "%)*"
+            stat_value += " *({})*".format(stat[2])
 
         datapacks.append((stat_name, stat_value, True))
 
     # Create embed UI object
-    gui = ui_embed.UI(
+    gui = embed.UI(
         channel,
         "Rocket League Stats: {}".format(name),
-        "*Stats obtained from [Rocket League Tracker Network](https://rocketleague.tracker.network/)*",
-        modulename=modulename,
+        "*Stats obtained from [Rocket League Tracker Network]"
+        "(https://rocketleague.tracker.network/)*",
+        modulename="rocketleague",
         colour=0x0088FF,
         thumbnail=dp,
         datapacks=datapacks
@@ -54,15 +54,16 @@ def fail_steamid(channel):
         channel (discord.Channel): The Discord channel to bind the embed to
 
     Returns:
-        ui (ui_embed.UI): The embed UI object
+        ui (embed.UI): The embed UI object
     """
 
-    gui = ui_embed.UI(
+    gui = embed.UI(
         channel,
         "That SteamID doesn't exist.",
-        "You can get your SteamID by going to your profile page and looking at the url, "
-        "or you can set a custom ID by going to edit profile on your profile page.",
-        modulename=modulename,
+        "You can get your SteamID by going to your profile page and looking at "
+        "the url, or you can set a custom ID by going to edit profile on your "
+        "profile page.",
+        modulename="rocketleague",
         colour=0x0088FF
     )
 
@@ -76,14 +77,14 @@ def fail_api(channel):
         channel (discord.Channel): The Discord channel to bind the embed to
 
     Returns:
-        ui (ui_embed.UI): The embed UI object
+        ui (embed.UI): The embed UI object
     """
 
-    gui = ui_embed.UI(
+    gui = embed.UI(
         channel,
         "Couldn't get stats off RLTrackerNetwork.",
-        "Maybe the API changed, please tell Infraxion.",
-        modulename=modulename,
+        "Please tell a dev if you're getting this repeatedly.",
+        modulename="rocketleague",
         colour=0x0088FF
     )
 
